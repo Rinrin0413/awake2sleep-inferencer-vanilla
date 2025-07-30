@@ -1,0 +1,11 @@
+.with-colon::after {
+	content: ": ";
+}
+
+table {
+	text-align: left;
+}
+
+td {
+	padding: 5px;
+}
