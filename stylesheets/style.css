@@ -1,0 +1,32 @@
+:root {
+	--text-color: white;
+}
+
+* {
+	scrollbar-color: #2b1d0e transparent;
+	scroll-margin-top: var(--header-height) + 18px;
+}
+
+:focus-visible {
+	outline: 3px outset #80808080;
+	outline-offset: 3px;
+	overflow: visible;
+}
+
+::selection {
+	color: inherit;
+	background: #0080ff80;
+}
+
+html {
+	scroll-behavior: smooth;
+	font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Sans', 'ヒラギノ角ゴシック', YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+	font-weight: 400;
+	background-color: black;
+}
+
+body {
+	color: var(--text-color);
+	margin: 0;
+	overflow-x: hidden;
+}
