@@ -1,5 +1,13 @@
 :root {
 	--text-color: white;
+
+	/* Environment */
+	--sun-x: 0;
+	--sun-y: -1;
+	--sky-color: #101a2a;
+	--fog-color: #000000;
+	--sun-color: #ffd700;
+	--sun-glow-color: #fffae0;
 }
 
 :focus-visible {
@@ -10,14 +18,15 @@
 
 ::selection {
 	color: inherit;
-	background: #0080ff80;
+	background: #0080ff60;
 }
 
 html {
 	scroll-behavior: smooth;
 	font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Sans', 'ヒラギノ角ゴシック', YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 	font-weight: 400;
-	background-color: black;
+	background: linear-gradient(to bottom, var(--sky-color), var(--fog-color));
+	min-height: 100vh
 }
 
 body {

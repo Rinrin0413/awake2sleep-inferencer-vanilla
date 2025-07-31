@@ -1,9 +1,31 @@
+.sun {
+	aspect-ratio: 1;
+	height: 96px;
+	width: auto;
+	position: absolute;
+	top: calc(50vh - var(--sun-y) * 30vh - 60px);
+	left: calc(50vw + var(--sun-x) * 40vw - 60px);
+	background: radial-gradient(circle, var(--sun-glow-color));
+	box-shadow:
+		0 0 50px var(--sun-glow-color),
+		0 0 100px var(--sun-color),
+		0 0 150px var(--sun-color);
+	border-radius: 50%;
+	pointer-events: none;
+	z-index: -1;
+}
+
 .with-colon::after {
 	content: ": ";
 }
 
 table {
 	text-align: left;
+}
+
+th,
+tr:last-child {
+	font-weight: 900;
 }
 
 td {

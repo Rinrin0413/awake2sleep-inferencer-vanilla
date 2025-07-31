@@ -35,15 +35,19 @@
         <link rel="stylesheet" href="/stylesheets/home.css" />
 	</head>
 	<body>
+		<div><div id="sun" class="sun" /></div>
 		<main>
 			<section>
 				<h1>Rinrin の睡眠時間推論機 <small>バニラ味</small></h1>
-				<p>覚醒時間から Rinrin の睡眠時間を回帰式を用いて推論します。</p>
+				<p>
+					覚醒時間から Rinrin の睡眠時間を回帰式を用いて推論します。
+					↑・↓キーでの操作推奨。
+				</p>
 			</section>
 			<section>
 				<div>
 					<label for="awake-dur-input" class="with-colon">覚醒時間</label>
-					<input type="number" min="0" max="39" step="0.5" id="awake-dur-input" />
+					<input type="number" min="0" max="1171" step="0.5" id="awake-dur-input" />
 					<label for="awake-dur-input">時間</label>
 				</div>
 				<h2>睡眠時間の推論結果</h2>
