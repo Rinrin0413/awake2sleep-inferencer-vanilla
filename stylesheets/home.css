@@ -69,17 +69,22 @@ input {
 
 h2 {
 	font-size: 24px;
+	margin-block: 14px;
+}
+
+.table-container {
+	width: 100%;
+	overflow-x: auto;
 }
 
 table {
 	font-size: 17px;
 	width: 100%;
-	margin-top: 24px;
-	margin-bottom: 12px;
+	margin-block: 12px;
 	background: #00000080;
 	border-radius: 4px;
 	border-collapse: collapse;
-	overflow: scroll;
+	text-wrap: nowrap;
 }
 
 th,
@@ -90,7 +95,7 @@ tr:last-child {
 
 th,
 td {
-	padding: 0.8rem 1rem;
+	padding: 8px 10px;
 }
 
 tr:hover {
@@ -105,9 +110,9 @@ footer {
 	align-items: center;
 }
 
-.footer-link,
-.copyright {
+footer p {
 	font-size: 18px;
+	margin: 7px auto;
 }
 
 .footer-link {
@@ -123,4 +128,53 @@ footer {
 .copyright {
 	display: inline-block;
 	opacity: 0.6;
+}
+
+@media screen and (max-width: 604px) {
+	h1 {
+		font-size: 26px;
+	}
+
+	p,
+	li {
+		font-size: 16px;
+	}
+
+	section,
+	footer {
+		--border-radius: 28px;
+		margin: 18px 10px;
+		padding: 13px 22px;
+	}
+
+	input {
+		font-size: 14px;
+		width: 72px;
+		padding: 4px 6px;
+	}
+
+	h2 {
+		font-size: 23px;
+		margin-block: 12px;
+	}
+
+	table {
+		font-size: 14px;
+		margin-block: 12px;
+	}
+
+	th,
+	td {
+		padding: 8px 10px;
+	}
+
+	footer {
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	footer p {
+		font-size: 16px;
+		margin: 4px 10px;
+	}
 }
