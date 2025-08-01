@@ -77,7 +77,7 @@ function updateResults() {
 	<td>${model.r2.toFixed(4)}</td>
 </tr>`;
 		}).join('') + `<tr>
-	<td>ReLU の平均</td>
+	<td title="1/n ∑max(0, xᵢ)">ReLU の平均</td>
 	<td>${convertHoursToHm(infSleepDurationMean)}</td>
 	<td></td>
 </tr>`;
