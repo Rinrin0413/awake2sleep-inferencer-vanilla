@@ -7,28 +7,28 @@ const STATISTICS = {sampleCount:392,date:'2025-07-31',stats:{awake:{mean:17.9230
 // https://github.com/Rinrin0413/Tempest-Shaders_JE/blob/84c26645b2ecfd6c169182fb4069c105476fdc68/shaders/lib/utils/colors.glsl
 // © 2022 Rinrin.rs | CC-BY-4.0 license
 const ENV_PALETTE = {
-	//  19:00 ~ 0:00 ~ 4:00
+	// ~ 20:00 ~ 4:00 ~
 	night: {
 		sky: '#101a2a',
 		fog: '#000000',
 		sun: '#ffd700',
 		sunGlow: '#fffae0'
 	},
-	// 4:00 ~ 6:00
+	// ~ 5:30 ~
 	dawn: {
 		sky: '#1e2a35',
 		fog: '#b56609',
 		sun: '#ffa300',
 		sunGlow: '#fffefb'
 	},
-	// 6:00 ~ 17:00
+	// ~ 13:00 ~ 16:00 ~
 	day: {
 		sky: '#3378bd',
 		fog: '#ccf2ff',
 		sun: '#ffbe16',
 		sunGlow: '#fffcf3'
 	},
-	// 17:00 ~ 19:00
+	// ~ 18:00 ~
 	dusk: {
 		sky: '#212e2e',
 		fog: '#6e2900',
@@ -36,6 +36,15 @@ const ENV_PALETTE = {
 		sunGlow: '#ffffff'
 	}
 };
+
+const TIME_KEYFRAMES = [
+	{ time: 4, palette: ENV_PALETTE.night },
+	{ time: 5.5, palette: ENV_PALETTE.dawn },
+	{ time: 13, palette: ENV_PALETTE.day },
+	{ time: 16, palette: ENV_PALETTE.day },
+	{ time: 18, palette: ENV_PALETTE.dusk },
+	{ time: 20, palette: ENV_PALETTE.night }
+];
 
 // Variables
 let infSleepDurationMean = 0;
@@ -103,44 +112,55 @@ function interpolateColor(color1, color2, factor) {
 }
 
 function getPaletteForTime(hour) {
-	let palette1, palette2, factor;
+	// Extend the keyframes for seamless 24-hour cycle.
+	const keyframes = [
+		// Previous day's last keyframe
+		{
+			time: TIME_KEYFRAMES[TIME_KEYFRAMES.length - 1].time - 24,
+			palette: TIME_KEYFRAMES[TIME_KEYFRAMES.length - 1].palette
+		},
+		// Defined keyframes
+		...TIME_KEYFRAMES,
+		// Next day's first keyframe
+		{
+			time: TIME_KEYFRAMES[0].time + 24,
+			palette: TIME_KEYFRAMES[0].palette
+		}
+	].sort((a, b) => a.time - b.time);
 
-	switch (true) {
-		case (0 <= hour && hour < 4):
-			return ENV_PALETTE.night;
-		case (4 <= hour && hour < 6):
-			palette1 = ENV_PALETTE.night;
-			palette2 = ENV_PALETTE.dawn;
-			factor = (hour - 4) / 2;
-			break;
-		case (6 <= hour && hour < 17):
-			palette1 = ENV_PALETTE.dawn;
-			palette2 = ENV_PALETTE.day;
-			factor = (hour - 6) / 11;
-			break;
-		case (17 <= hour && hour < 19):
-			palette1 = ENV_PALETTE.day;
-			palette2 = ENV_PALETTE.dusk;
-			factor = (hour - 17) / 2;
-			break;
-		default:
-			palette1 = ENV_PALETTE.dusk;
-			palette2 = ENV_PALETTE.night;
-			factor = (hour - 19) / 5;
-			break;
+	let frameStart, frameEnd;
+	for (let i = 0; i < keyframes.length - 1; i++) {
+		frameStart = keyframes[i];
+		frameEnd = keyframes[i + 1];
+		if (frameStart.time <= hour && hour < frameEnd.time) break;
 	}
 
+	const paletteFrom = frameStart.palette;
+	const paletteTo = frameEnd.palette;
+
+	const frameDuration = frameEnd.time - frameStart.time;
+
+	if (
+		// Midnight and Midday
+		paletteFrom === paletteTo ||
+		// Avoid division by zero.
+		frameDuration === 0
+	) return paletteFrom;
+
+	const factor = (hour - frameStart.time) / frameDuration;
+
 	return {
-		sky: interpolateColor(palette1.sky, palette2.sky, factor),
-		fog: interpolateColor(palette1.fog, palette2.fog, factor),
-		sun: interpolateColor(palette1.sun, palette2.sun, factor),
-		sunGlow: interpolateColor(palette1.sunGlow, palette2.sunGlow, factor)
+		sky: interpolateColor(paletteFrom.sky, paletteTo.sky, factor),
+		fog: interpolateColor(paletteFrom.fog, paletteTo.fog, factor),
+		sun: interpolateColor(paletteFrom.sun, paletteTo.sun, factor),
+		sunGlow: interpolateColor(paletteFrom.sunGlow, paletteTo.sunGlow, factor)
 	};
 }
 
 function updateEnv() {
 	// 3600000 = 60 * 60 * 1000
 	const futureDate = new Date((new Date()).getTime() + infSleepDurationMean * 3600000);
+	// 0 <= futureHour < 24
 	const futureHour = futureDate.getHours() + futureDate.getMinutes() / 60;
 
 	// ㎭ = h / 24 * 2 * π
