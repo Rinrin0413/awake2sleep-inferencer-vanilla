@@ -57,8 +57,9 @@ const sunElement = document.getElementById('sun');
 // Functions
 
 function convertHoursToHm(hours) {
-	const h = Math.floor(hours);
-	const m = Math.round((hours - h) * 60);
+	const totalM = Math.round(hours * 60);
+	const h = Math.floor(totalM / 60);
+	const m = totalM % 60;
 	return `${h}時間${m}分`;
 }
 
