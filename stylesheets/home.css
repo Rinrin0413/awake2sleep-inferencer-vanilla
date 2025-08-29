@@ -136,6 +136,10 @@ select {
 	cursor: pointer;
 }
 
+option {
+    color: initial;
+}
+
 h2 {
 	font-size: 24px;
 	margin-block: 14px;
