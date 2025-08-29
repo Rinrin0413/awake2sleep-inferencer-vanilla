@@ -52,19 +52,88 @@ label {
 }
 
 .input-container {
+    display: flex;
+	flex-direction: column;
+	gap: 10px;
 	text-align: center;
 }
 
-input {
+input,
+select {
 	font-size: 16px;
+	font-family: inherit;
 	color: inherit;
-	width: 80px;
 	padding: 5px 5px;
 	background: #ffffff30;
 	border: 1px solid #ffffff60;
 	border-radius: 64px;
 	box-shadow: 0px 4px 36px #00000030;
+	accent-color: var(--sun-color);
 	text-align: center;
+}
+
+input[type="number"] {
+	width: 80px;
+}
+
+input[type="checkbox"] {
+	--size: 29px;
+	--padding: 4px;
+	width: calc(var(--size) * 2);
+	height: var(--size);
+	margin: 0;
+	margin-right: 6px;
+	padding: 0;
+	position: relative;
+	border-radius: var(--size);
+	vertical-align: middle;
+	box-sizing: content-box;
+	cursor: pointer;
+	appearance: none;
+	transition: 0.3s;
+}
+
+input[type="checkbox"]::before {
+	content: '';
+	width: calc(var(--size) - var(--padding) * 2);
+	aspect-ratio: 1;
+	position: absolute;
+	top: var(--padding);
+	left: var(--padding);
+	background-color: white;
+	border-radius: 50%;
+	filter: drop-shadow(0 0 2px black);
+	transition: 0.2s ease-in;
+}
+
+input[type="checkbox"]:checked {
+	background-color: var(--sun-color);
+	box-shadow:
+		0 0 70px var(--sun-color),
+		0 0 12px var(--sun-color);
+	transition: 0.8s;
+}
+
+input[type="checkbox"]:checked::before {
+	translate: var(--size);
+	background-color: var(--sun-glow-color);
+}
+
+.select-container {
+	display: inline-block;
+}
+
+.select-container::before {
+	content: ": ";
+}
+
+.select-container.hidden {
+	display: none;
+}
+
+select {
+	width: 102px;
+	cursor: pointer;
 }
 
 h2 {
@@ -96,6 +165,38 @@ tr:last-child {
 th,
 td {
 	padding: 8px 10px;
+}
+
+td {
+	transition: 1s;
+}
+
+tr.highlight.glow-anim {
+	background: linear-gradient(
+		90deg, transparent 43%,
+		color-mix(in srgb, var(--sun-glow-color) 30%, transparent),
+		transparent 57%
+	);
+	background-size: 200% 100%;
+	background-position: 110% 0;
+	animation: glow 0.6s forwards ease-in-out;
+}
+
+@keyframes glow {
+	0% {
+		background-position: 114% 0;
+	}
+	50% {
+		box-shadow: 0 0 128px color-mix(in srgb, var(--sun-color) 20%, transparent) inset;
+	}
+	100% {
+		background-position: -14% 0;
+	}
+}
+
+tr.highlight td:first-child {
+	color: var(--sun-color);
+	filter: drop-shadow(0 0 8px var(--sun-color));
 }
 
 tr:hover {
@@ -147,10 +248,36 @@ footer p {
 		padding: 13px 22px;
 	}
 
-	input {
+	.input-container {
+		gap: 18px;
+	}
+
+	input,
+	select {
 		font-size: 14px;
-		width: 72px;
 		padding: 4px 6px;
+	}
+
+	input[type="number"] {
+		width: 72px;
+	}
+
+	input[type="checkbox"] {
+		--size: 24px;
+		--padding: 3px;
+		padding: 0;
+	}
+
+	.select-container {
+		display: block;
+	}
+
+	.select-container::before {
+		content: "";
+	}
+
+	select {
+		width: 94px;
 	}
 
 	h2 {

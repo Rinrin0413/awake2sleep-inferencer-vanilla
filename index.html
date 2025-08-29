@@ -46,9 +46,26 @@
 			</section>
 			<section>
 				<div class="input-container">
-					<label for="awake-dur-input" class="with-colon">覚醒時間</label>
-					<input type="number" min="0" max="1171" step="0.5" id="awake-dur-input" />
-					<label for="awake-dur-input">時間</label>
+					<div>
+						<label for="awake-dur-input" class="with-colon">覚醒時間</label>
+						<input type="number" min="0" max="1171" step="0.5" id="awake-dur-input" />
+						<label for="awake-dur-input">時間</label>
+					</div>
+					<div>
+						<input type="checkbox" id="dow-toggle"
+						><label for="dow-toggle">覚醒曜日を指定（重回帰）</label
+						><div id="select-container" class="select-container hidden"
+							><select id="dow-select">
+								<option value="Sunday">日曜日</option>
+								<option value="Monday">月曜日</option>
+								<option value="Tuesday">火曜日</option>
+								<option value="Wednesday">水曜日</option>
+								<option value="Thursday">木曜日</option>
+								<option value="Friday">金曜日</option>
+								<option value="Saturday">土曜日</option>
+							</select>
+						</div>
+					</div>
 				</div>
 			</section>
 			<section>

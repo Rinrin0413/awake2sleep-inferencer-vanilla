@@ -51,6 +51,9 @@ let infSleepDurationMean = 0;
 
 // HTML elements
 const input = document.getElementById('awake-dur-input');
+const toggleSwitch = document.getElementById('dow-toggle');
+const selectContainer = document.getElementById('select-container');
+const select = document.getElementById('dow-select');
 const resultsTableBody = document.getElementById('results');
 const sunElement = document.getElementById('sun');
 
@@ -63,25 +66,46 @@ function convertHoursToHm(hours) {
 	return `${h}時間${m}分`;
 }
 
+function getCurrentDayOfWeek() {
+	return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][
+		(new Date()).getDay()
+	];
+}
+
 function updateResults() {
 	const awakeDuration = parseFloat(input.value);
-	const sleepDurations = STATISTICS.regrModels.reduce(
-		(acc, model) => {
-			acc[model.name] = model.f(awakeDuration, 'Monday'); // TODO: 曜日指定の実装
-			return acc;
-		}, {}
-	);
+	const enableMultiRegr = toggleSwitch.checked;
+	const selectedDayOfWeek = enableMultiRegr ? select.value : null;
 
-	infSleepDurationMean = STATISTICS.regrModels.reduce((acc, model) => {
+	if (enableMultiRegr) selectContainer.classList.remove('hidden');
+	else selectContainer.classList.add('hidden');
+
+	let sleepDurations = {};
+	let enabledModels = [];
+
+	STATISTICS.regrModels.forEach(model => {
+		if (model.name.includes('重回帰')) {
+			if (enableMultiRegr) {
+				sleepDurations[model.name] = model.f(awakeDuration, selectedDayOfWeek);
+				enabledModels.push(model);
+			}
+		} else {
+			sleepDurations[model.name] = model.f(awakeDuration);
+			enabledModels.push(model);
+		}
+	});
+
+	// Calculate ReLU mean only from visible models
+	infSleepDurationMean = enabledModels.reduce((acc, model) => {
 		let sleepDuration = sleepDurations[model.name];
 		if (sleepDuration < 0) sleepDuration = 0;
 		return acc + sleepDuration;
-	}, 0) / STATISTICS.regrModels.length;
+	}, 0) / enabledModels.length;
 
-	resultsTableBody.innerHTML = STATISTICS.regrModels
+	resultsTableBody.innerHTML = enabledModels
 		.map((model) => {
 			const name = model.name;
-			return `<tr>
+			return `<tr${name.includes('重回帰') ? ' class="highlight"' : ''}>
 	<td>${name}</td>
 	<td>${convertHoursToHm(sleepDurations[name])}</td>
 	<td>${model.r2.toFixed(4)}</td>
@@ -178,14 +202,25 @@ function updateEnv() {
 	style.setProperty('--sun-glow-color', palette.sunGlow);
 }
 
+function updateAll() {
+	updateResults();
+	updateEnv();
+}
+
 // Other
 
-// Initialize default input value, results and environment.
+// Initialize default values.
 input.value = STATISTICS.variableStats.awakeStats.mean.toFixed(1);
+toggleSwitch.checked = false;
+select.value = getCurrentDayOfWeek();
 updateResults();
 updateEnv();
 
-input.addEventListener('input', () => {
-	updateResults();
-	updateEnv();
+input.addEventListener('input', updateAll);
+toggleSwitch.addEventListener('change', () => {
+	updateAll();
+	if (toggleSwitch.checked) document
+		.querySelectorAll('tr.highlight')
+		.forEach(e => e.classList.add('glow-anim'));
 });
+select.addEventListener('change', updateAll);
