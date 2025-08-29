@@ -109,10 +109,12 @@ function updateResults() {
 	<td>${name}</td>
 	<td>${convertHoursToHm(sleepDurations[name])}</td>
 	<td>${model.r2.toFixed(4)}</td>
+	<td>${model.adjR2.toFixed(4)}</td>
 </tr>`;
 		}).join('') + `<tr>
 	<td title="1/n ∑max(0, xᵢ)">ReLU の平均</td>
 	<td>${convertHoursToHm(infSleepDurationMean)}</td>
+	<td></td>
 	<td></td>
 </tr>`;
 }
