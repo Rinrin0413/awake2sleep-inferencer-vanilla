@@ -208,7 +208,8 @@ tr.highlight td:first-child {
 }
 
 tr:hover {
-	background: #ffffff20;
+	/* Use `!important` to override `tr.highlight.glow-anim` */
+	background: #ffffff20 !important;
 }
 
 
