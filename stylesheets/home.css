@@ -43,7 +43,7 @@ label {
 }
 
 .with-colon::after {
-	content: ": ";
+	content: ":";
 }
 
 .svg-filter {
@@ -62,6 +62,7 @@ input,
 select {
 	font-size: 16px;
 	font-family: inherit;
+	margin: 0 6px;
 	color: inherit;
 	padding: 5px 5px;
 	background: #ffffff30;
@@ -82,8 +83,6 @@ input[type="checkbox"] {
 	--padding: 4px;
 	width: calc(var(--size) * 2);
 	height: var(--size);
-	margin: 0;
-	margin-right: 6px;
 	padding: 0;
 	position: relative;
 	border-radius: var(--size);
@@ -128,7 +127,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .select-container::before {
-	content: ": ";
+	content: ":";
 }
 
 .select-container.hidden {
