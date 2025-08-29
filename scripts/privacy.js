@@ -1,0 +1,1 @@
+updateEnv((new Date()).getHours());
