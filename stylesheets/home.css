@@ -76,6 +76,7 @@ input[type="number"] {
 	width: 80px;
 }
 
+/* Toggle Switch (Track) */
 input[type="checkbox"] {
 	--size: 29px;
 	--padding: 4px;
@@ -93,6 +94,7 @@ input[type="checkbox"] {
 	transition: 0.3s;
 }
 
+/* Toggle Switch Thumb */
 input[type="checkbox"]::before {
 	content: '';
 	width: calc(var(--size) - var(--padding) * 2);
@@ -103,9 +105,10 @@ input[type="checkbox"]::before {
 	background-color: white;
 	border-radius: 50%;
 	filter: drop-shadow(0 0 2px black);
-	transition: 0.2s ease-in;
+	transition: 0.2s cubic-bezier(0, 1.75, 1, 1);
 }
 
+/* Toggle Switch Track (ON) */
 input[type="checkbox"]:checked {
 	background-color: var(--sun-color);
 	box-shadow:
@@ -114,6 +117,7 @@ input[type="checkbox"]:checked {
 	transition: 0.8s;
 }
 
+/* Toggle Switch Thumb (ON) */
 input[type="checkbox"]:checked::before {
 	translate: var(--size);
 	background-color: var(--sun-glow-color);
