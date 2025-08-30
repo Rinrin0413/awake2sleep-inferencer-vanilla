@@ -1,5 +1,6 @@
 :root {
 	--text-color: white;
+	--easing: cubic-bezier(0, 1.75, 1, 1);
 
 	/* Environment */
 	--sun-x: 0;
