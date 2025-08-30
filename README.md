@@ -12,6 +12,11 @@
 	without any frameworks or libraries.
 </p>
 
+<p align="center">
+	*For the best experience,
+	I recommend using the latest version of Google Chrome.
+</p>
+
 <br />
 
 <p align="center">
