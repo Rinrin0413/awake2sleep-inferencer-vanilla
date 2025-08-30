@@ -124,6 +124,11 @@ td {
 	padding: 8px 10px;
 }
 
+th {
+	background: #00000060;
+	border-bottom: 1px solid #ffffff50;
+}
+
 td {
 	transition: 1s;
 }
