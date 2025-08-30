@@ -1,9 +1,117 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Rinrin の睡眠時間推論機 バニラ味</title>
+	<head prefix="og:http://ogp.me/ns#">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="format-detection" content="telephone=no,address=no,email=no" />
+
+		<meta property="og:site_name" content="睡眠時間推論機 バニラ味" />
+		<meta property="og:locale" content="ja_JP" />
+		<meta name="twitter:site" content="https://awake2sleep-inferencer-vanilla.pages.dev" />
+		<meta name="theme-color" content="#d1b27f" />
+
+		<meta name="author" content="Rinrin.rs <rinrin0413.rs@gmail.com> (https://rinrin.pages.dev)" />
+		<meta name="copyright" content="© 2025 Rinrin.rs | BSD-3-Clause" />
+
+		<link rel="icon" href="/favicon.ico?v=0" />
+		<link rel="icon" href="/images/rinrin-logo.svg?v=0" type="image/svg+xml" />
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+
+		<!-- ▲ Website metadata ▲ -->
+		<!-- ▼ Webpage metadata ▼ -->
+
+		<title>睡眠時間推論機 バニラ味</title>
+		<meta name="title" content="睡眠時間推論機 バニラ味" />
+		<meta name="description" content="回帰モデルを用いて、覚醒継続時間から Rinrin の睡眠時間を推論します。" />
+		<meta name="thumbnail" content="https://awake2sleep-inferencer-vanilla.pages.dev/images/thumbnail.png" />
+
+		<meta property="og:title" content="睡眠時間推論機 バニラ味" />
+		<meta property="og:description" content="回帰モデルを用いて、覚醒継続時間から Rinrin の睡眠時間を推論します。" />
+		<meta property="og:url" content="https://awake2sleep-inferencer-vanilla.pages.dev" />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary" />
+		<meta property="og:image" content="https://awake2sleep-inferencer-vanilla.pages.dev/images/thumbnail.png" />
+
+		<link rel="canonical" href="https://awake2sleep-inferencer-vanilla.pages.dev" />
+		<link rel="stylesheet" href="/stylesheets/home.css" />
 	</head>
-	<body>In development.</body>
+	<body>
+		<div><div id="sun" class="sun"></div></div>
+		<main>
+			<noscript><section><p>
+				本ウェブサイトは JavaScript が有効でないと動作しません。
+				JavaScript を有効にしてから再度アクセスしてください。
+			</p></section></noscript>
+			<section>
+				<h1>睡眠時間推論機 <small>バニラ味</small></h1>
+				<p>
+					回帰モデルを用いて、覚醒継続時間から Rinrin の睡眠時間を推論します。
+					時間や曜日は上下矢印キーでの操作推奨。
+				</p>
+			</section>
+			<section>
+				<div class="input-container">
+					<div>
+						<label for="awake-dur-input" class="with-colon">覚醒継続時間</label
+						><input type="number" min="0" max="1023" step="0.5" id="awake-dur-input"
+						/><label for="awake-dur-input">時間</label>
+					</div>
+					<div>
+						<input type="checkbox" id="dow-toggle"
+						><label for="dow-toggle">覚醒曜日を指定（重回帰）</label
+						><div id="select-container" class="select-container hidden"
+							><select id="dow-select">
+								<option value="Sunday">日曜日</option>
+								<option value="Monday">月曜日</option>
+								<option value="Tuesday">火曜日</option>
+								<option value="Wednesday">水曜日</option>
+								<option value="Thursday">木曜日</option>
+								<option value="Friday">金曜日</option>
+								<option value="Saturday">土曜日</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h2>睡眠時間の推論結果</h2>
+				<div class="table-container">
+					<table>
+						<thead>
+							<tr>
+								<th>回帰モデル</th>
+								<th>推論値</th>
+								<th><abbr title="決定係数">R²</abbr></th>
+								<th><abbr title="自由度調整済み決定係数">補正R²</abbr></th>
+							</tr>
+						</thead>
+						<tbody id="results" class="results"></tbody>
+					</table>
+				</div>
+			</section>
+			<section>
+				<details>
+					<summary>データセットの統計</summary>
+					<div class="table-container">
+						<table><tbody id="stats"></tbody></table>
+					</div>
+				</details>
+			</section>
+		</main>
+		<footer>
+			<p><a href="/privacy" class="footer-link">プライバシーポリシー</a></p>
+			<p class="copyright">&copy; 2025 Rinrin.rs | BSD-3-Clause</p>
+		</footer>
+		<svg width="0" height="0" class="svg-filter"><defs>
+			<filter id="glass">
+				<feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="3" seed="1031" result="noise" />
+				<feGaussianBlur in="noise" stdDeviation="2" result="blur" />
+				<feDisplacementMap in="SourceGraphic" in2="blur" scale="200" xChannelSelector="R" yChannelSelector="G" result="distort" />
+				<feGaussianBlur in="distort" stdDeviation="2" />
+			</filter>
+		</defs></svg>
+		<script src="/scripts/script.js"></script>
+		<script src="/scripts/home.js"></script>
+	</body>
 </html>

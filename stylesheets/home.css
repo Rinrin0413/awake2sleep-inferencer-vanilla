@@ -1,0 +1,260 @@
+.with-colon::after {
+	content: ":";
+}
+
+.svg-filter {
+	position: absolute;
+	visibility: hidden;
+}
+
+.input-container {
+    display: flex;
+	flex-direction: column;
+	gap: 10px;
+	text-align: center;
+}
+
+input,
+select {
+	font-size: 16px;
+	font-family: inherit;
+	margin: 0 6px;
+	color: inherit;
+	padding: 5px 5px;
+	background: #ffffff30;
+	border: 1px solid #ffffff60;
+	border-radius: 64px;
+	box-shadow: 0px 4px 36px #00000030;
+	text-align: center;
+}
+
+input[type="number"] {
+	width: 80px;
+}
+
+/* Toggle Switch (Track) */
+input[type="checkbox"] {
+	--size: 29px;
+	--padding: 4px;
+	width: calc(var(--size) * 2);
+	height: var(--size);
+	padding: 0;
+	position: relative;
+	border-radius: var(--size);
+	vertical-align: middle;
+	box-sizing: content-box;
+	cursor: pointer;
+	appearance: none;
+	transition: 0.3s;
+}
+
+/* Toggle Switch Thumb */
+input[type="checkbox"]::before {
+	content: '';
+	width: calc(var(--size) - var(--padding) * 2);
+	aspect-ratio: 1;
+	position: absolute;
+	top: var(--padding);
+	left: var(--padding);
+	background-color: white;
+	border-radius: 50%;
+	filter: drop-shadow(0 0 2px black);
+	transition: 0.2s var(--easing);
+}
+
+/* Toggle Switch Track (ON) */
+input[type="checkbox"]:checked {
+	background-color: var(--sun-color);
+	box-shadow:
+		0 0 70px var(--sun-color),
+		0 0 12px var(--sun-color);
+	transition: 0.8s;
+}
+
+/* Toggle Switch Thumb (ON) */
+input[type="checkbox"]:checked::before {
+	translate: var(--size);
+	background-color: var(--sun-glow-color);
+}
+
+.select-container {
+	display: inline-block;
+}
+
+.select-container::before {
+	content: ":";
+}
+
+.select-container.hidden {
+	display: none;
+}
+
+select {
+	width: 102px;
+	cursor: pointer;
+}
+
+option {
+    color: initial;
+}
+
+.table-container {
+	width: 100%;
+	margin-block: 12px;
+	overflow-x: auto;
+}
+
+table,
+details {
+	font-size: 17px;
+	width: 100%;
+	background: #00000080;
+	border-radius: 4px;
+	border-collapse: collapse;
+	text-wrap: nowrap;
+}
+
+th,
+.results tr:last-child {
+	font-weight: 900;
+	text-align: left;
+}
+
+th,
+td {
+	padding: 8px 10px;
+}
+
+th {
+	background: #00000060;
+	border-bottom: 1px solid #ffffff50;
+}
+
+td {
+	transition: 1s;
+}
+
+tr.highlight.glow-anim {
+	background: linear-gradient(
+		90deg, transparent 43%,
+		color-mix(in srgb, var(--sun-glow-color) 30%, transparent),
+		transparent 57%
+	);
+	background-size: 200% 100%;
+	background-position: 110% 0;
+	animation: glow 0.6s forwards ease-in-out;
+}
+
+details {
+	margin-block: 10px;
+	border: 1px solid #ffffff2a;
+}
+
+summary {
+	font-weight: 900;
+	padding: 8px 10px;
+	cursor: pointer;
+	/* For Safari */
+	list-style: none;
+	transition: 0.1s;
+}
+
+/* For Chrome, Safari */
+summary::-webkit-details-marker {
+	display: none;
+}
+
+summary::before {
+	content: "▶";
+	display: inline-block;
+	margin-right: 8px;
+	transition: 0.2s var(--easing);
+}
+
+summary:hover {
+	background: #ffffff0a;
+}
+
+details[open] summary {
+	border-bottom: 1px solid #ffffff2a;
+}
+
+details[open] summary::before {
+	transform: rotate(90deg);
+}
+
+details > .table-container {
+	margin-block: 0;
+}
+
+details table {
+	background: transparent;
+	border-radius: 0;
+	margin-block: 0;
+}
+
+@keyframes glow {
+	0% {
+		background-position: 114% 0;
+	}
+	50% {
+		box-shadow: 0 0 128px color-mix(in srgb, var(--sun-color) 20%, transparent) inset;
+	}
+	100% {
+		background-position: -14% 0;
+	}
+}
+
+tr.highlight td:first-child {
+	color: var(--sun-color);
+	filter: drop-shadow(0 0 8px var(--sun-color));
+}
+
+tr:hover {
+	/* Use `!important` to override `tr.highlight.glow-anim` */
+	background: #ffffff20 !important;
+}
+
+@media screen and (max-width: 604px) {
+	.input-container {
+		gap: 18px;
+	}
+
+	input,
+	select {
+		font-size: 14px;
+		padding: 4px 6px;
+	}
+
+	input[type="number"] {
+		width: 72px;
+	}
+
+	input[type="checkbox"] {
+		--size: 24px;
+		--padding: 3px;
+		padding: 0;
+	}
+
+	.select-container {
+		display: block;
+	}
+
+	.select-container::before {
+		content: "";
+	}
+
+	select {
+		width: 94px;
+	}
+
+	table {
+		font-size: 14px;
+		margin-block: 12px;
+	}
+
+	th,
+	td {
+		padding: 8px 10px;
+	}
+}
