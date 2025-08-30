@@ -114,7 +114,7 @@ table {
 }
 
 th,
-tr:last-child {
+.results tr:last-child {
 	font-weight: 900;
 	text-align: left;
 }

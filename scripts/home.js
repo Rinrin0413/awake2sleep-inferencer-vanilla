@@ -11,6 +11,7 @@ const toggleSwitch = document.getElementById('dow-toggle');
 const selectContainer = document.getElementById('select-container');
 const select = document.getElementById('dow-select');
 const resultsTableBody = document.getElementById('results');
+const statsTableBody = document.getElementById('stats');
 
 // Functions
 
@@ -84,13 +85,52 @@ function updateAll() {
 	updateEnv(futureHour);
 }
 
+function setStats() {
+	const stats = [
+		['標本数', STATISTICS.nSamples],
+		['最終更新日', STATISTICS.date],
+		['相関係数', STATISTICS.corr],
+		['p値', STATISTICS.pVal.toFixed(16)]
+	];
+
+	// Variable Statistics
+	const awakeStats = STATISTICS.variableStats.awakeStats;
+	const sleepStats = STATISTICS.variableStats.sleepStats;
+	[['覚醒時間', awakeStats], ['睡眠時間', sleepStats]]
+		.map(pair => {
+			const prefix = pair[0] + 'の';
+			const stats = pair[1];
+			return [
+				[prefix + '平均', stats.mean + '時間'],
+				[prefix + '中央値', stats.median + '時間'],
+				[prefix + '標準偏差', stats.stdDev + '時間'],
+				[prefix + '最小値', stats.min + '時間'],
+				[prefix + '最大値', stats.max + '時間'],
+				[prefix + '第1四分位数', stats.q1 + '時間'],
+				[prefix + '第3四分位数', stats.q3 + '時間']
+			];
+		})
+		.forEach(arr => stats.push(...arr));
+
+	// Regression Models
+	STATISTICS.regrModels.forEach(model => {
+		stats.push([model.name + 'の関数（回帰式）', model.f]);
+		stats.push([model.name + 'のR²', model.r2]);
+		stats.push([model.name + 'の補正R²', model.adjR2]);
+	});
+
+	statsTableBody.innerHTML = stats
+		.map(stat => `<tr><td>${stat[0]}</td><td>${stat[1]}</td></tr>`).join('');
+}
+
 // Other
 
 // Initialize default values.
 input.value = STATISTICS.variableStats.awakeStats.mean.toFixed(1);
 toggleSwitch.checked = false;
 select.value = getCurrentDayOfWeek();
-updateAll()
+updateAll();
+setStats();
 
 input.addEventListener('input', updateAll);
 toggleSwitch.addEventListener('change', () => {
