@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head><title>Simple Tester</title></head>
+	<body>
+		<p>Open the developer console to see the test results.</p>
+
+		<!-- These elements are needed by scripts. -->
+		<main style="display: none;">
+			<input type="number" id="awake-dur-input" />
+			<input type="checkbox" id="dow-toggle" />
+			<div id="select-container">
+				<select id="dow-select">
+					<option value="Sunday">日曜日</option>
+					<option value="Monday">月曜日</option>
+					<option value="Tuesday">火曜日</option>
+					<option value="Wednesday">水曜日</option>
+					<option value="Thursday">木曜日</option>
+					<option value="Friday">金曜日</option>
+					<option value="Saturday">土曜日</option>
+				</select>
+			</div>
+			<table><tbody id="results"></tbody></table>
+			<table><tbody id="stats"></tbody></table>
+		</main>
+
+		<!-- Scripts to be tested -->
+		<script src="/scripts/script.js"></script>
+		<script src="/scripts/home.js"></script>
+		<!-- <script src="/scripts/privacy.js"></script> -->
+
+		<!-- Test code -->
+		<script src="/tests/test.js"></script>
+	</body>
+</html>
