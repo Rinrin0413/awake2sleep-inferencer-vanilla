@@ -1,7 +1,7 @@
 <h1 align="center">awake2sleep-inferencer-vanilla</h1>
 
 <p align="center">
-	<img src="images/thumbnail.png" alt="Thumbnail" width="512" />
+	<img src="thumbnail.png" alt="Thumbnail" width="512" />
 	<br />
 	<a href="https://awake2sleep-inferencer-vanilla.pages.dev">https://awake2sleep-inferencer-vanilla.pages.dev</a>
 </p>
